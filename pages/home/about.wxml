@@ -1,0 +1,51 @@
+<import src="/templates/footer/footer.wxml" />
+<view class="desc bg-white padding-xl margin-xl">
+  <view class='imagesize'>
+    <image class="in-image" src='../../images/logo.jpg'></image>
+  </view>
+  <text selectable="true">欢迎使用「WUT课表」\n（邮箱:1794220097@qq.com）</text>
+  <!-- <text class="title">数据来源：</text>
+  <text>WUT教务系统</text> -->
+
+  
+
+  <view style="margin-top:20rpx;margin-bottom:30rpx;">
+      <view class='text-content text-lg'>
+        <view class="text-bold">FAQ</view>
+        <view class='text-lg text-bold'>我的信息安全吗?</view>
+        <view class='text-lg' style=''>
+        小程序只有前端，没有服务器，你的账号密码直接发向教务处并获取课表信息
+        </view>
+        <view class='text-lg margin-top-sm text-bold'>显示请求失败?</view>
+        <view class='text-lg' style='line-height:1.8;'>
+        请求有延迟，点击后过3s再点一下,再次失败说明密码不正确
+        </view>
+        <!-- <text class="text-xl margin-top-xl">目前课表的功能还在逐渐完善中...</text> -->
+        <view class='text-lg margin-top-sm text-bold'>课表信息准确吗?</view>
+        <view class='text-lg' style='line-height:1.8;'>
+        课表信息与教务处的一致，但小程序有缓存机制，遇到补退选时，请将小程序删除重新绑定
+        </view>
+        <view class='text-lg' style='line-height:1.8;'>
+        目前课表的功能还在逐渐完善中...
+        </view>
+        <view class='text-lg margin-top-sm'>0319更新：增加了筛选本周课的功能</view>
+      </view>
+  </view>
+
+
+
+</view>
+<template is="footer"></template>
+<view class="bg-bubbles{{bg_display ? ' display' : ''}}">
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+</view>
