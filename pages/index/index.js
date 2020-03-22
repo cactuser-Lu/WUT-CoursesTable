@@ -21,8 +21,8 @@ let app = getApp(),
       ],
       index:null,
    
-      userName: '0121710880108',
-      password: '17411414153674',
+      userName: '',
+      password: '',
       classInfo: [],
       classdata: '',
       pos:0
