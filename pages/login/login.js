@@ -151,6 +151,11 @@ pageParams.setClassColor = function (that) {
     courses: courses
   })
   wx.setStorageSync('courses', courses)
+  wx.showToast({
+    title: '绑定成功',
+    icon: 'success',
+    duration: 1000
+  })
 }
 
 pageParams.formatClass = function (that) {

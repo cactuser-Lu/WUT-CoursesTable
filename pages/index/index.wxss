@@ -109,3 +109,15 @@
 .course text{
     font-size: 25rpx;
 }
+
+#select picker{
+  /* flex: 1; */
+  float:right;
+  margin:20rpx;
+  /* margin-top:-20rpx; */
+  padding: 10rpx;
+  background-color:#6BA7F0;
+  z-index:1;
+  font-size:35rpx; 
+  color: #fff;
+}

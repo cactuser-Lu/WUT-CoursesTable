@@ -9,6 +9,17 @@ let app = getApp(),
       palette: ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#1abc9c', '#f1c40f', '#e67e22', '#e74c3c', '#d35400', '#f39c12', '#1abc9c', '#8e44ad'],
 			weeks: 0,
 			courses: {},   
+      picker: [
+        '第0周', '第1周', '第2周',
+        '第3周', '第4周', '第5周',
+        '第6周', '第7周', '第8周',
+        '第9周', '第10周', '第11周',
+        '第12周', '第13周', '第14周',
+        '第15周', '第16周', '第17周',
+        '第18周', '第19周', '第20周',
+      
+      ],
+      index:null,
    
       userName: '0121710880108',
       password: '17411414153674',
@@ -18,10 +29,20 @@ let app = getApp(),
 		}
 	};
 
+pageParams.PickerChange=function(e){
+  console.log(e);
+  this.setData({
+    index: e.detail.value,
+    weeks: e.detail.value
+  })
+  pageParams.setClassColor(this)
+}
+
 pageParams.setClassColor = function (that){
   var courses = that.data.courses;
   var classInfo = that.data.classInfo
-  var weeks = that.getWeek();
+  var weeks = that.data.weeks
+  // var weeks = 18
   var week_rex = /第(\d{2})-(\d{2})周/
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 5; j++) {
@@ -47,6 +68,7 @@ pageParams.setClassColor = function (that){
           }
         }
         if(isweek){
+          courses[i][j][0].bg=that.data.palette[Math.floor(Math.random() * 12)] 
           isweek=0
         }else{
           courses[i][j][0].bg='#fff'
@@ -206,7 +228,8 @@ var that=this;
 	}
   var week=that.getWeek();
   this.setData({
-    weeks:week
+    weeks:week,
+    index:null
   }) 
   
   //pageParams.getCourses(this)

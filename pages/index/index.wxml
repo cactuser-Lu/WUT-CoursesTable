@@ -4,7 +4,7 @@
       <text>{{weeks}}</text>
       <text>周</text>
     </view>
-    <view class="week-title">
+    <view class="week-title" >
       <text wx:for="{{weekTitle}}" wx:key="*this">{{item}}</text>
     </view>
   </view>
@@ -47,4 +47,14 @@
       </view>
     </view>
   </view>
+
+  <view class="" id="select">
+		<!-- <view class="title">选择周次</view> -->
+		<picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+			<view class="picker">
+			选择周次：	{{index?picker[index]:'第'+weeks+'周'}}  >
+			</view>
+		</picker>
+	</view>
+
 </view>

@@ -1,5 +1,6 @@
 @import 'style/weui.wxss';
 @import "colorui.wxss";
+@import "icon.wxss";
 
 page {
     background-color: #ebebeb;
