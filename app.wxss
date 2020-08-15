@@ -1,0 +1,8 @@
+@import 'style/weui.wxss';
+@import 'style/main.wxss';
+/* @import "colorui.wxss"; */
+@import "icon.wxss";
+
+page {
+    background-color: #ebebeb;
+}

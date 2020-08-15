@@ -1,0 +1,60 @@
+<import src="/templates/footer/footer.wxml" />
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="content" class="text-xl">关于</view>
+</cu-custom>
+<view class="desc bg-white padding-xl margin-xl shadow">
+  <view class='imagesize'>
+    <image class="in-image" src='../../images/logo.jpg'></image>
+  </view>
+  <text selectable="true">欢迎使用「WUT课表」\n（邮箱:1794220097@qq.com）</text>
+  <!-- <text class="title">数据来源：</text>
+  <text>WUT教务系统</text> -->
+
+  
+
+  <view style="margin-top:20rpx;margin-bottom:30rpx;" class="">
+      <view class='text-content text-lg '>
+        <view class="text-bold">FAQ</view>
+        <view class='text-lg text-bold'>我的信息安全吗?</view>
+        <view class='text-lg' style=''>
+        小程序只有前端，没有服务器，你的账号密码直接发向教务处并获取课表信息
+        </view>
+        <view class='text-lg margin-top-sm text-bold'>显示请求失败?</view>
+        <view class='text-lg' style='line-height:1.8;'>
+        可能是密码不正确。随着程序不断完善，此前登录失败的同学也可以再次尝试绑定。
+        </view>
+        <!-- <text class="text-xl margin-top-xl">目前课表的功能还在逐渐完善中...</text> -->
+        <view class='text-lg margin-top-sm text-bold'>课表信息准确吗?</view>
+        <view class='text-lg' style='line-height:1.8;'>
+        课表信息与教务处的一致，但小程序有缓存机制，遇到补退选时，刷新课表即可
+        </view>
+        <view class='text-lg margin-top-sm text-bold'>为什么我的课表有闪屏?</view>
+        <view class='text-lg' style='line-height:1.8;'>
+        小程序有缓存机制，是版本更替导致的，只需要再绑定一下就好了
+        </view>
+        <view class='text-lg' style='line-height:1.8;'>
+        目前课表的功能还在逐渐完善中...
+        </view>
+        <view class='text-lg margin-top-sm'>0319更新：增加了筛选本周课的功能</view>
+        <view class='text-lg margin-top-sm'>0420更新：修补BUG</view>
+        <view class='text-lg margin-top-sm'>0501更新：优化刷新课表功能，优化绑定功能，优化配色</view>
+      </view>
+  </view>
+
+
+
+</view>
+<template is="footer"></template>
+<view class="bg-bubbles{{bg_display ? ' display' : ''}}">
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+</view>

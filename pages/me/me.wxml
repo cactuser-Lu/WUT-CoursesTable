@@ -1,0 +1,93 @@
+<!--pages/fortest/fortest.wxml-->
+<import src="/templates/footer/footer.wxml" />
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content" class="text-xl">WUT课表</view>
+</cu-custom>
+<view class="mine-wrapper">
+  <!-- <view class="avatar-wrapper">
+    <view>
+      <view class="avatar">
+        <image wx:if="{{avataUrl}}" style="border-radius:50%;" src="{{avataUrl}}"></image>
+        <image wx:else bindtap="" style="border-radius:50%;" src="../../images/avatar.jpg"></image>
+      </view>  
+      <view class="text">
+        <text wx:if="{{nick}}">{{nick}}</text>
+        <text wx:else bindtap="">欢迎你</text>
+				<!--<button open-type='getUserInfo'  bindgetuserinfo="bindGetUserInfo">获取授权		</button>
+      </view>
+    </view>
+  </view> -->
+
+  <view class="bg-img bg-mask padding-tb-xl" style="background-image: url('{{swiperList[0].url}}');height: 300rpx;">
+    <view class="padding-xl text-white">
+      <view class="padding-xs text-xl">
+        {{jinrishici}}
+      </view>
+      <view class="padding-xs text-xl" style="margin-left:40%;">
+        ── {{dynasty}} · {{author}}
+      </view>
+    </view>
+  </view>
+
+
+  <view class="list-wrapper">
+    <view class="weui-cells weui-cells_after-title">
+      <block>
+        <navigator url="../../pages/login/login" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="../../images/icon_account.png"></image>
+          </view>
+          <view class="weui-cell__bd">教务账号</view>
+          <view wx:if="{{stuNum}}" class="weui-cell__ft weui-cell__ft_in-access">{{stuNum}}</view>
+					<view wx:else class="weui-cell__ft weui-cell__ft_in-access">{{status}}</view>
+        </navigator>
+
+				<button id="feedback" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='fresh'>
+          <view class="weui-cell__hd">
+            <image src="../../images/icon_update.png"></image>
+          </view>
+          <view class="weui-cell__bd">刷新课表</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">上次更新：{{updateTime}}</view>
+        </button>
+      </block>
+    </view>
+
+    <view class="weui-cells">
+        <button id="feedback" class="weui-cell weui-cell_access" hover-class="weui-cell_active" open-type="feedback">
+          <view class="weui-cell__hd">
+            <image src="../../images/icon_feedback.png"></image>
+          </view>
+          <view class="weui-cell__bd">反馈</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </button>
+        <navigator url="/pages/home/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+					<view class="weui-cell__hd">
+            <image src="../../images/icon_about.png"></image>
+          </view>
+          <view class="weui-cell__bd">关于</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+    </view>
+
+
+    <view wx:if="{{note.display}}" style="background-color:white" class="margin padding shadow">
+      <view class='text-content text-lg'>
+        <view class='text-xl text-bold'>公告：</view>
+        <view class='text-xl' style=''>
+        {{note.note1}}
+        </view>
+        <view class='text-xl' style=''>
+        {{note.note2}}。</view>
+        <text>\n</text>
+        <view class='text-xl' style=''>{{note.note3}}
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <!-- <view class="cu-tabbar-height"></view> -->
+</view>
+
+
+<text>\n</text>
+<template is="footer"></template>

@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/feedback",
+    "pages/home/about",
+    "pages/login/login",
+    "pages/me/me",
+    "pages/auth/auth"
+  ],
+  "window": {
+    "navigationBarTitleText": "WUT课表",
+    "navigationBarBackgroundColor": "#318EE2",
+    "backgroundColor": "#ebebeb",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "grey",
+    "backgroundColor": "#FBFBFB",
+    "selectedColor": "black",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "课表",
+        "iconPath": "images/icon_timetable1.png",
+        "selectedIconPath": "images/icon_timetable.png"
+      }, 
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me1.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 20000
+  },
+  "sitemapLocation": "sitemap.json"
+}

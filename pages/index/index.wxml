@@ -1,0 +1,64 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content" class="text-xl" style="margin-left:30%;">WUT课表</view>
+</cu-custom>
+
+<view class="page">
+  <view class="head corner">
+    <view class="weeks left">
+      <text>{{weeks}}</text>
+      <text>周</text>
+    </view>
+    <view class="week-title" >
+      <text wx:for="{{weekTitle}}" style="color:{{index==weekindex?'green':''}};" wx:key="*this">{{item}}</text>
+    </view>
+  </view> 
+  <view class="placeholder"></view>
+  <view class="body">
+    <view class="sidebar corner">
+      <view>
+        <text>1</text>
+        <text>2</text>
+      </view>
+      <view>
+        <text>3</text>
+        <text>4</text>
+      </view>
+      <view>
+        <text>5</text>
+        <text>6</text>
+      </view>
+      <view>
+        <text>7</text>
+        <text>8</text>
+      </view>
+      <view>
+        <text>9</text>
+        <text>10</text>
+      </view>
+    </view>
+    <view class="content">
+      <!-- 循环 每天 -->
+      <view class="column" wx:for="{{courses}}" wx:key="day" wx:for-item="column" wx:for-index="day">
+        <view class="course-wrap" style=" " wx:for="{{column}}" wx:key="lesson">
+          <!-- 循环 -->
+          <block>
+            <view class="course {{item.bg?'':'shadow'}}" style="background-color: {{item.bg?item.bg:item[0].bg}}; top: {{courseTop[index]}}rpx;color:{{item[1].iscurrentweek?'#fff':'gray'}}" data-day="{{day}}" data-lesson="{{index}}" data-id="{{id}}" bindtap="showDetail">
+              <text>{{item[1].name}}</text>
+              <text>{{item[1].address}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="" id="select">
+		<!-- <view class="title">选择周次</view> -->
+		<picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+			<view class="picker">
+			选择周次：	{{index?picker[index]:'第'+weeks+'周'}}  >
+			</view>
+		</picker>
+	</view>
+
+</view>
