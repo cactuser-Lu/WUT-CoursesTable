@@ -162,6 +162,7 @@ pageParams.onLoad = function (options) {
 		nick: wx.getStorageSync('nick'),
 		avataUrl: wx.getStorageSync('imgUrl'),
 		stuNum: wx.getStorageSync('stuNum'),
+    updateTime: wx.getStorageSync("updateTime")
 	})
 	
 };
@@ -194,6 +195,8 @@ pageParams.getNote = function () {
 };
 pageParams.fresh=function() {
   console.log(123)
+  
+  wx.setStorageSync("updateTime", new Date().format("yyyy/MM/dd") )
   var that=this
   if (wx.getStorageSync('stuid') && wx.getStorageSync('stupwd')){
     wx.showLoading({
@@ -278,11 +281,12 @@ pageParams.getCourses = function (that) {
     }
   }).then(res => {
     // console.log(res.result['set-cookie'])
-    // console.log(res.result) // get
+    console.log(res.result) // get
     // console.log(JSON.parse(res.result)) // post
 
     var cookie_reg1 = /JSESSIONID[^;]*;/;
     var cookie_reg2 = /CERLOGIN[^;]*;/;
+
     // console.log(res.cookies[0].match(cookie_reg1))
     // console.log(res.cookies[1].match(cookie_reg2))
     // console.log(res.result['set-cookie'].length)
@@ -300,8 +304,21 @@ pageParams.getCourses = function (that) {
       })
     }
     var cookies = res.result['set-cookie'][0].match(cookie_reg1) + res.result['set-cookie'][1].match(cookie_reg2)
+    // console.log(res.result['set-cookie'][0].match(cookie_reg1))
     console.log(cookies)
     var URL2 = 'http://sso.jwc.whut.edu.cn/Certification/toIndex.do'
+    // wx.request({
+    //   url: URL2,
+    //   method:'GET',
+    //   header: {
+    //     'content-type': 'application/json' ,// 默认值
+    //     'Cookie': cookies
+    //   },
+    //   success: function (res) {
+    //     console.log(res.data)
+    //   }
+
+    // })
     wx.cloud.callFunction({
       name: 'getTable',
       data: {

@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
   let postResponse = await got(event.URL, {
-    method: 'POST', //post请求
+    method: 'GET', //post请求
     headers: {
       'Content-Type': 'application/json',
       'Cookie':event.Cookie

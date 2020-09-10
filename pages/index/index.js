@@ -1,11 +1,40 @@
 var md5 = require('../data/md5.js');
 var sha1 = require('../data/sha1.js');
 
-
 let app = getApp(),
 	pageParams = { 
 		data: {
-			weekTitle: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+			weekTitle: [
+        { 
+          week: '周一',
+          date:''
+        },
+        {
+          week: '周二',
+          date: ''
+        },
+        {
+          week: '周三',
+          date: ''
+        },
+        {
+          week: '周四',
+          date: ''
+        },
+        {
+          week: '周五',
+          date: ''
+        },
+        {
+          week: '周六',
+          date: ''
+        },
+        {
+          week: '周日',
+          date: ''
+        },
+      
+      ],
 			courseTop: ['', 210, 425, 635, 850, 1060],
       palette1: ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#1abc9c', '#f1c40f', '#e67e22', '#e74c3c', '#d35400', '#f39c12', '#3498DB', '#FAAD2E'],
       palette:[
@@ -29,8 +58,8 @@ let app = getApp(),
       ],
       weekindex:null,
       index:0,
-      userName: '0121710880108',
-      password: '17411414153674',
+      userName: '',
+      password: '',
       classInfo: [],
       classdata: '',
       pos:0,
@@ -38,10 +67,68 @@ let app = getApp(),
 		}
 	};
 
+
+pageParams.getDateHeader = function (that) {
+  var weekTitle = that.data.weekTitle
+  this.nowTime = new Date();
+  this.init = function () {
+    this.dayInWeek = this.nowTime.getDay();
+    this.dayInWeek == 0 && (this.dayInWeek = 7);
+    this.thsiWeekFirstDay = this.nowTime.getTime() - (this.dayInWeek - 1) * 86400000;
+    this.thisWeekLastDay = this.nowTime.getTime() + (7 - this.dayInWeek) * 86400000;
+    return this;
+  };
+  this.getWeekType = function (type) {
+    type = ~~type;
+    var firstDay = this.thsiWeekFirstDay + type * 7 * 86400000;
+    var lastDay = this.thisWeekLastDay + type * 7 * 86400000;
+    for(let i=0;i<7;i++){
+      var day = this.thsiWeekFirstDay +  i * 86400000;
+      var date = this.formateDate(day)
+      weekTitle[i].date=date
+      // console.log(date)
+    }
+    //记得setDate才能重新渲染,直接修改this.data，而不调用this.setData()，是无法改变当前页面的状态的，会导致数据不一致,setData 函数用于将数据从逻辑层发送到视图层（异步），同时改变对应的 this.data 的值（同步）。
+    that.setData({
+      weekTitle: weekTitle
+    })
+    return this.getWeekHtml(firstDay, lastDay);
+  }
+  this.formateDate = function (time) {
+    var newTime = new Date(time)
+    var year = newTime.getFullYear();
+    var month = newTime.getMonth() + 1;
+    var day = newTime.getDate();
+    // return year + "-" + (month >= 10 ? month : "0" + month) + "-" + (day >= 10 ? day : "0" + day);
+    return month+"-"+day;
+  };
+  this.getWeekHtml = function (f, l) {
+    return this.formateDate(f) + "至" + this.formateDate(l);
+  };
+} 
+/** 
+ * 转发
+ */
+pageParams.onShareAppMessage= function () {
+  return {
+    title: 'WUT课表'
+  }
+}
+/**
+ * 分享到朋友圈
+ */
+pageParams.onShareTimeline=function(){
+  return {
+    title: 'WUT课表'
+  }
+}
+/**
+ * 底部周次选择器
+ */
 pageParams.PickerChange=function(e){
   console.log(e);
   this.setData({
-    // index: e.detail.value,
+    index: e.detail.value,
     weeks: e.detail.value
   })
   pageParams.setClassColor(this)
@@ -206,7 +293,7 @@ pageParams.getCourses=function(that){
 	 */
 pageParams.onShow = function () {
 var that=this;
-  
+  // pageParams.test()
 	//每次显示这个页面,判断有没有登录
   if (!wx.getStorageSync("courses")) {
 		wx.showModal({
@@ -241,16 +328,16 @@ var that=this;
   var week = that.getWeek()
   var weekindex = new Date().getDay();
   weekindex = weekindex == 0 ? 6 : weekindex - 1;
-  console.log(weekindex)
+  
   that.setData({
     weeks: week,
-    weekindex: weekindex
+    weekindex: weekindex,
+    index: null
   })
-  pageParams.setClassColor(that)
+  pageParams.setClassColor(this)
   // pageParams.getCourses(this)
-  
-  
-}   
+} 
+//采用了Promise方式同步，延迟有点高，会出现屏闪
 pageParams.getFirstDay = function () {
   var that = this
   return new Promise(function (resolve, reject) {
@@ -276,27 +363,56 @@ pageParams.getFirstDay = function () {
   }).then(function () {
     var week = that.getWeek()
     var weekindex = new Date().getDay();
+    // weekindex=0
     weekindex = weekindex == 0 ? 6 : weekindex - 1;
     console.log(weekindex)
     that.setData({
       weeks: week,
-      weekindex: weekindex
+      weekindex: weekindex,
+      index:null
     })       
     pageParams.setClassColor(that)
   })
 
 };
 
-pageParams.onReady = function () {
+pageParams.getFirstDay02 = function () {
+  var that = this
+    wx.cloud.init()
+    const db = wx.cloud.database({
+      env: 'wut-classtable-umngq'
+    });
+    const table = db.collection('classTable');
+    var firstDay = that.data.firstDay
+    table.doc("b1cb7d3a5f375beb009fd03946531378").get({
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          firstDay: res.data.firstday
+        })
+      }
+    });
   
+
+};
+ 
+pageParams.onReady = function () {
 };
 pageParams.onLoad = function () {
+  
   var that = this;
+  
 	// 绑定事件
 	app.event.on('getCoursesSuccess', this.renderCourses, this);
 	app.event.on('logout', this.recover, this);
   
-	console.log("111")
+  this.getFirstDay()
+/**
+ * header上的日期
+ */
+  var getWeek = new pageParams.getDateHeader(that);
+  var week = getWeek.init().getWeekType();
+  console.log(week);
 };
 
 pageParams.onUnload = function () {
@@ -384,10 +500,7 @@ pageParams.getWeek = function () {
   console.log(day2)
   var days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
   
-
-  console.log(days)
   days = parseInt(days)
-  console.log(days)
   console.log(Math.ceil((days+1) / 7))
   return Math.ceil((days+1) / 7)
   // var ans=0;

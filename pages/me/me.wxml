@@ -3,7 +3,8 @@
 <cu-custom bgColor="bg-gradual-blue">
   <view slot="content" class="text-xl">WUT课表</view>
 </cu-custom>
-<view class="mine-wrapper">
+
+<view class="mine-wrapper" style="margin-bottom: -20px;min-height: 100%;">
   <!-- <view class="avatar-wrapper">
     <view>
       <view class="avatar">
@@ -77,17 +78,21 @@
         {{note.note1}}
         </view>
         <view class='text-xl' style=''>
-        {{note.note2}}。</view>
+        {{note.note2}}</view>
         <text>\n</text>
         <view class='text-xl' style=''>{{note.note3}}
         </view>
       </view>
     </view>
 
+    <!-- <view style="height:100px;" wx:else>
+    </view> -->
   </view>
   <!-- <view class="cu-tabbar-height"></view> -->
+
 </view>
 
-
 <text>\n</text>
-<template is="footer"></template>
+<view>
+  <template is="footer"></template>
+</view>

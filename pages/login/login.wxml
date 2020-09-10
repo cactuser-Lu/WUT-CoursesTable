@@ -7,22 +7,23 @@
         <view class="weui-cell weui-cell_input{{stuid_focus ? ' focus' : ''}}">
             <text class="weui-label">学  号</text>
             <view class="weui-cell__bd">
-                <input id="stuid" class="weui-input" type="number" maxlength="20" placeholder="请输入要学号" bindinput="inputInput" bindfocus="inputFocus" bindblur="inputBlur" value='{{stuNum}}'/>
+                <input id="stuid" class="weui-input" type="number" maxlength="20" placeholder="请输入学号" bindinput="inputInput" bindfocus="inputFocus" bindblur="inputBlur" value='{{stuNum}}'/>
             </view>
         </view>
         <view class="weui-cell weui-cell_input{{stupwd_focus ? ' focus' : ''}}">
             <text class="weui-label">密  码</text>
             <view class="weui-cell__bd">
-                <input id="stupwd" class="weui-input" password maxlength="16" placeholder="请输入教务密码" bindinput="inputInput" bindfocus="inputFocus" bindblur="inputBlur"/>
+           <!-- class password -->
+                <input id="stupwd" class="weui-input"  maxlength="16" placeholder="请输入教务密码" bindinput="inputInput" bindfocus="inputFocus" bindblur="inputBlur"/>
             </view>  
         </view>
     </view>
     <view class="weui-btn-area">
         <button class="weui-btn" type="primary" bindtap="getData">绑定</button>
     </view>
-    <!-- <view class="text-content margin padding">
+    <view class="text-content margin padding">
         <view class='text-lg text-gray' style=' line-height:1.8; margin-sm'>Tip: \n
-        请求有延迟，点击后过3s再点一下,再次失败说明密码不正确
+        学号是以012开头的13位号码，学号密码与登录教务处系统账号密码一致
         </view>
-    </view> -->
+    </view>
 </view>

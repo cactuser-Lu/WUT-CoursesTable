@@ -1,6 +1,6 @@
 var md5 = require('../data/md5.js');
 var sha1 = require('../data/sha1.js');
-
+ 
 let app = getApp(),
 	pageParams = {
 		data: {
@@ -289,14 +289,11 @@ pageParams.getCourses = function (that) {
     //console.log(res.cookies[0].match(cookie_reg1))
     //console.log(res.cookies[1].match(cookie_reg2))
 
-    wx.hideLoading();
+    
     if (res.result['set-cookie'].length > 1) {
-      wx.showToast({
-        title: '绑定成功',
-        icon: 'success',
-        duration: 1000
-      })
+      
     } else {
+      wx.hideLoading();
       wx.showModal({
         title: '绑定失败',
         content: '可能是账号或密码不正确',
@@ -321,6 +318,12 @@ pageParams.getCourses = function (that) {
       // console.log(data)
       that.setData({
         classdata: data
+      })
+      wx.hideLoading();
+      wx.showToast({
+        title: '绑定成功',
+        icon: 'success',
+        duration: 1000
       })
       that.formatClass(that);
     })
