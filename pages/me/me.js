@@ -406,7 +406,7 @@ pageParams.setClassColor = function (that) {
   var courses = this.data.courses;
   var classInfo = this.data.classInfo
   var weeks = this.getWeek();
-  var week_rex = /第(\d{2})-(\d{2})周/
+  var week_rex = /第(\d{2})-(\d{2})|(\d{2})周/
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 5; j++) {
       if (courses[i][j].length > 0 && courses[i][j].length != 'undefined') {
@@ -417,6 +417,12 @@ pageParams.setClassColor = function (that) {
           var week_re = courses[i][j][k].time.match(week_rex)
           var start = parseInt(week_re[1], 10)
           var end = parseInt(week_re[2], 10)
+          if (start == 'undefined' || end == 'undefined' || Number.isNaN(start)) {
+            start = week_re[3]
+            end = week_re[3]
+            console.log('测试')
+            courses[i][j][k].time = courses[i][j][k].time.replace(/(\d{2})/, start + '-' + end)
+          }
           if (weeks >= start && weeks <= end) {
             courses[i][j][k].iscurrentweek = 1
             var tmp = courses[i][j][1];

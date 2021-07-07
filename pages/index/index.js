@@ -68,9 +68,9 @@ let app = getApp(),
 	};
 
 
-pageParams.getDateHeader = function (that) {
+pageParams.getDateHeader = function (that,nowtime) {
   var weekTitle = that.data.weekTitle
-  this.nowTime = new Date();
+  this.nowTime = nowtime;
   this.init = function () {
     this.dayInWeek = this.nowTime.getDay();
     this.dayInWeek == 0 && (this.dayInWeek = 7);
@@ -126,11 +126,18 @@ pageParams.onShareTimeline=function(){
  * 底部周次选择器
  */
 pageParams.PickerChange=function(e){
+  var that=this
   console.log(e);
+  var first = this.getWeek()
   this.setData({
     index: e.detail.value,
     weeks: e.detail.value
   })
+  var end = e.detail.value
+  console.log(end - first)
+  var nowtime = new Date().getTime() + 7 * 86400000 * (end - first)
+  var getWeek = new pageParams.getDateHeader(this, new Date(nowtime))
+  var week = getWeek.init().getWeekType();
   pageParams.setClassColor(this)
 }  
 
@@ -139,20 +146,31 @@ pageParams.setClassColor = function (that){
   var classInfo = that.data.classInfo
   var weeks = that.data.weeks
   // var weeks = 18
-  var week_rex = /第(\d{2})-(\d{2})周/
+  var week_rex = /第(\d{2})-(\d{2})|(\d{2})周/
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 5; j++) {
-      if (courses[i][j].length > 0 && courses[i][j].length != 'undefined') {
+      if (courses[i][j].hasOwnProperty('length')&&courses[i][j].length > 0 ) {
         
         // console.log(courses[i][j])
         var isweek = 0
         //标记本节有无本周课
         //循环每个位置的课程
         for (let k = 1; k < courses[i][j].length; k++) {
+          var sections = []
+          var section_rex = /(\d{1}||\d{2})-(\d{1}||\d{2})节/
+          var section_re = courses[i][j][k].time.match(section_rex)
+          var startsection = parseInt(section_re[1], 10)
+          var endsection = parseInt(section_re[2], 10)
+          courses[i][j][k].sections = endsection - startsection
+
           
           var week_re = courses[i][j][k].time.match(week_rex)
           var start = parseInt(week_re[1], 10)
           var end = parseInt(week_re[2], 10)
+          if (start == 'undefined' || end == 'undefined') {
+            start = week_re[3]
+            end = week_re[3]
+          }
           if (weeks >= start && weeks <= end) {
             courses[i][j][k].iscurrentweek = 1
             var tmp = courses[i][j][1];
@@ -334,6 +352,8 @@ var that=this;
     weekindex: weekindex,
     index: null
   })
+  var getWeek = new pageParams.getDateHeader(that, new Date());
+  var week = getWeek.init().getWeekType();
   pageParams.setClassColor(this)
   // pageParams.getCourses(this)
 } 
@@ -410,7 +430,7 @@ pageParams.onLoad = function () {
 /**
  * header上的日期
  */
-  var getWeek = new pageParams.getDateHeader(that);
+  var getWeek = new pageParams.getDateHeader(that,new Date());
   var week = getWeek.init().getWeekType();
   console.log(week);
 };
@@ -501,6 +521,7 @@ pageParams.getWeek = function () {
   var days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
   
   days = parseInt(days)
+  console.log(days)
   console.log(Math.ceil((days+1) / 7))
   return Math.ceil((days+1) / 7)
   // var ans=0;

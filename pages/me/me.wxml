@@ -53,7 +53,7 @@
       </block>
     </view>
 
-    <view class="weui-cells">
+    <view class="weui-cells margin-bottom">
         <button id="feedback" class="weui-cell weui-cell_access" hover-class="weui-cell_active" open-type="feedback">
           <view class="weui-cell__hd">
             <image src="../../images/icon_feedback.png"></image>
@@ -70,6 +70,7 @@
         </navigator>
     </view>
 
+    <ad unit-id="adunit-710b4ecd40ff1cfe"></ad>
 
     <view wx:if="{{note.display}}" style="background-color:white" class="margin padding shadow">
       <view class='text-content text-lg'>

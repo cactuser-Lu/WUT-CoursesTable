@@ -20,80 +20,106 @@
       <view id="sidebarChild">
         <view>
            <text>1</text>
-           <text class="mintime">7:00</text>
-           <text class="mintime">7:50</text>
+           <text class="mintime">8:00</text>
+           <text class="mintime">8:45</text>
         </view>
         <view>
            <text>2</text>
-           <text class="mintime">8:00</text>
            <text class="mintime">8:50</text>
+           <text class="mintime">9:35</text>
         </view>
-      </view>
-      <view id="sidebarChild">
+      <!-- </view>
+      <view id="sidebarChild"> -->
         <view>
            <text>3</text>
-           <text class="mintime">7:00</text>
-           <text class="mintime">7:50</text>
+           <text class="mintime">9:55</text>
+           <text class="mintime">10:40</text>
         </view>
         <view>
            <text>4</text>
-           <text class="mintime">8:00</text>
-           <text class="mintime">8:50</text>
+           <text class="mintime">10:45</text>
+           <text class="mintime">11:30</text>
         </view>
         <!-- <view>
            <text>5</text>
            <text class="mintime">8:00</text>
            <text class="mintime">8:50</text>
         </view> -->
-      </view>
-      <view id="sidebarChild">
+      <!-- </view>
+      <view id="sidebarChild"> -->
         <view>
            <text>5</text>
-           <text class="mintime">7:00</text>
-           <text class="mintime">7:50</text>
+           <text class="mintime">11:35</text>
+           <text class="mintime">12:20</text>
         </view>
+        <!-- <view>
+           <text>午休</text>
+           <text class="mintime">8:00</text>
+           <text class="mintime">8:50</text>
+        </view> -->
+      <!-- </view>
+      <view id="sidebarChild"> -->
         <view>
            <text>6</text>
-           <text class="mintime">8:00</text>
-           <text class="mintime">8:50</text>
+           <text class="mintime">14:00</text>
+           <text class="mintime">14:45</text>
         </view>
-      </view>
-      <view id="sidebarChild">
         <view>
            <text>7</text>
-           <text class="mintime">7:00</text>
-           <text class="mintime">7:50</text>
+           <text class="mintime">14:50</text>
+           <text class="mintime">15:35</text>
         </view>
+      <!-- </view>
+      <view id="sidebarChild"> -->
         <view>
            <text>8</text>
-           <text class="mintime">8:00</text>
-           <text class="mintime">8:50</text>
+           <text class="mintime">15:40</text>
+           <text class="mintime">16:25</text>
         </view>
-      </view>
-      <view id="sidebarChild">
         <view>
            <text>9</text>
-           <text class="mintime">7:00</text>
-           <text class="mintime">7:50</text>
+           <text class="mintime">16:45</text>
+           <text class="mintime">17:30</text>
+        </view>
+      <!-- </view>
+      <view id="sidebarChild"> -->
+        <view>
+           <text>10</text>
+           <text class="mintime">17:35</text>
+           <text class="mintime">18:20</text>
         </view>
         <view>
-           <text>4</text>
-           <text class="mintime">8:00</text>
-           <text class="mintime">8:50</text>
+           <text>11</text>
+           <text class="mintime">19:00</text>
+           <text class="mintime">19:45</text>
+        </view>
+      <!-- </view>
+      <view id="sidebarChild"> -->
+        <view>
+           <text>12</text>
+           <text class="mintime">19:50</text>
+           <text class="mintime">20:35</text>
+        </view>
+        <view>
+           <text>13</text>
+           <text class="mintime">20:40</text>
+           <text class="mintime">21:25</text>
         </view>
       </view>
     </view>
     <view class="content">
       <!-- 循环 每天 -->
       <view class="column" wx:for="{{courses}}" wx:key="day" wx:for-item="column" wx:for-index="day">
-        <view class="course-wrap" style=" " wx:for="{{column}}" wx:key="lesson">
+        <view class="course-wrap" style=" " wx:for="{{column}}" wx:key="lesson" data-index ='{{index}}' style="flex:{{index%3?3:2}};">
           <!-- 循环 -->
-          <block>
-            <view class="course {{item.bg?'':'shadow'}}" style="background-color: {{item.bg?item.bg:item[0].bg}}; top: {{courseTop[index]}}rpx;color:{{item[1].iscurrentweek?'#fff':'gray'}}" data-day="{{day}}" data-lesson="{{index}}" data-id="{{id}}" bindtap="showDetail">
+          <!-- top: {{courseTop[index]}}rpx; -->
+          <!-- <block> -->
+            <view class="course {{item.bg?'':'shadow'}}" style="background-color: {{item.bg?item.bg:item[0].bg}}; color:{{item[1].iscurrentweek?'#fff':'gray'}};flex:2;" data-day="{{day}}" data-lesson="{{index}}" data-id="{{id}}" bindtap="showDetail">
               <text>{{item[1].name}}</text>
               <text>{{item[1].address}}</text>
             </view>
-          </block>
+          <!-- </block> -->
+          <view wx:if="{{index%3}}" style="flex:{{item[1].sections>1?0:1}};"></view>
         </view>
       </view>
     </view>
@@ -108,4 +134,7 @@
 		</picker>
 	</view>
 
+<ad unit-id="adunit-0603ff9690b409da"></ad>
+
 </view>
+

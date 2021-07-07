@@ -116,17 +116,27 @@ pageParams.setClassColor = function (that) {
   var courses = this.data.courses;
   var classInfo = this.data.classInfo
   var weeks = this.getWeek();
-  var week_rex = /第(\d{2})-(\d{2})周/
+  var week_rex = /第(\d{2})-(\d{2})|(\d{2})周/
   for (let i = 0; i < 7; i++) {
     for (let j = 0; j < 5; j++) {
-      if (courses[i][j].length > 0 && courses[i][j].length != 'undefined') {
+      // console.log(courses[i][j])
+      if (courses[i][j].hasOwnProperty('length') && courses[i][j].length > 0) {
         courses[i][j].unshift({ bg: this.data.palette[Math.floor(Math.random() * 12)] })
         var isweek = 0//标记本节有无本周课
+        console.log(courses[i][j])
         //循环每个位置的课程
         for (let k = 1; k < courses[i][j].length; k++) {
           var week_re = courses[i][j][k].time.match(week_rex)
+          // console.log(week_re)
           var start = parseInt(week_re[1], 10)
           var end = parseInt(week_re[2], 10)
+          console.log(start)
+          if (start == 'undefined' || end == 'undefined' || Number.isNaN(start)){
+            start = week_re[3]
+            end=week_re[3]
+            console.log('测试')
+            courses[i][j][k].time = courses[i][j][k].time.replace(/(\d{2})/,start+'-'+end)
+          }
           if (weeks >= start && weeks <= end) {
             courses[i][j][k].iscurrentweek = 1
             var tmp = courses[i][j][1];
@@ -166,13 +176,16 @@ pageParams.formatClass = function (that) {
   var classInfo = that.data.classInfo;
   var data = this.data.classdata
   var weeks = this.getWeek();
-  //console.log(data)
+  // console.log(data)
   var data_re = data.replace(/[\r\n|\t]/g, '');
+  // data_re=data;
   // console.log(data_re);
   //var classes_rex =/<td style="text-align: center">.*?<\/td>/g
+  data_re = data_re.match(/id="xqkb".*class="main-tit-b"/g)
   //加工为td标签
-  var classes_rex = /<td style="text-align: center">[\d\D]*?<\/td>/g
-  var classes = data_re.match(classes_rex);
+  // console.log(data_re)
+  var classes_rex = /<td style=".*?>[\d\D]*?<\/td>/g
+  var classes = data_re[0].match(classes_rex);
   // console.log(classes);
   //匹配不为空的td
   var detail_rex = /<div.*?<\/div>/
@@ -185,6 +198,7 @@ pageParams.formatClass = function (that) {
       classInfo[i] = new Array(classes[i].length);
       for (let j in classes[i]) {
         var cc = classes[i][j].match(detail_rex2)
+        // console.log(cc);
         classInfo[i][j] = {
           name: cc[1],
           address: cc[2],
@@ -315,7 +329,7 @@ pageParams.getCourses = function (that) {
       that.data.classdata = res2.result
       var classdata = that.data.classdata
       var data = res2.result
-      // console.log(data)
+      console.log(res2)
       that.setData({
         classdata: data
       })

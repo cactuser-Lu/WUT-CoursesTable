@@ -16,6 +16,6 @@ exports.main = async (event, context) => {
       'Cookie':event.Cookie
     }
   })
-
-  return postResponse.body//返回数据
+  var data = postResponse.body.replace(/[\r\n|\t]/g, '')
+  return data.match(/id="xqkb".*class="main-tit-b"/g)[0]//返回数据
 }
